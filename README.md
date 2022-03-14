@@ -3,14 +3,18 @@
 #### Login: xhorak72
 
 Implementaci php skriptu jsem rozdělil do 2 souborů:
+
 `parse.php` – obsahuje kontrolu vstupnich parametru a volani jednotlivých casti analyzatoru.
 `analyzator.php` – obsahuje třídu `Analyzator` pod kterou je implementována analýza a generace výstupního XML kódu.
+
 Samotná analýza byla rozdělena do 2 částí
+
 ## 1. uložení vstupu do pole
 Zde ze standartního vstupu čtu data, která následně dělím po řádcích a po slovech (OPCODE / operand) a ukládám si je do 2D pole `$input`.
 Zároveň jsem odstranil komentáře a většinu přebytečných mezer a dále pracoval s touto strukturou.
 
 `$input[i][j] - i jde po řádcích, j jde po slovech na řádku`
+
 ## 2. analýza
 V této metodě jsem procházel data v poli a prováděl lexikální a syntaktické kontroly.
 Kdykoli jsem zde narazil na prázdný prvek pole (bílý znak na začátku, nebo konci řádku), tak jsem ho vyhodil z pole.
@@ -18,6 +22,7 @@ První kontrola, kterou jsem prováděl je zda je v prvním prvku hlavička `.IP
 ### Lexikální kontroly
 V další části analýzy jsem prováděl primárně lexikální kontroly.
 Pomocí dvou for cyklů postupně procházím řádky a jednotlivá slova na nich a testuji zda se:
+
 1. shodují s nějakým OPCODE (kde nezáleží na velikosti písmen) a zda je OPCODE pouze na začátku řádku
 2. zda se jedná o `int`/`bool`/`string`/`nil` (jako operandy na velikosti písmen záleží)
 3. zda slovo obsahuje @, v jakém případě testuji zda je to konstanta, nebo proměnná a provádím další kontroly, jako jsou povolené znaky u proměnné, či zda prostor před, nebo za @ není prázdný, nebo jinak nesprávný.
